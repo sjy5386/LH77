@@ -1,16 +1,14 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import itertools
+import string
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def generate_names(character_pool, min_length, max_length):
+    names = []
+    for i in range(min_length, max_length + 1):
+        names += list(
+            map(''.join, filter(lambda e: e[0] != '-' and e[-1] != '-', itertools.product(character_pool, repeat=i))))
+    return names
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print(generate_names(string.ascii_lowercase + string.digits + '-', 2, 3))
