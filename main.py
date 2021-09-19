@@ -20,6 +20,12 @@ def check_domain_availability(domain_name: str):
     return route53domains.check_domain_availability(DomainName=domain_name)['Availability'] == 'AVAILABLE'
 
 
+def save_to_file(filename: str, lines: Iterable[AnyStr]):
+    f = open(filename, 'w')
+    f.writelines(lines)
+    f.close()
+
+
 if __name__ == '__main__':
     domain_names = generate_names(string.ascii_lowercase + string.digits + '-', 2, 3)
     top_level_domains = ['.com']
@@ -29,3 +35,4 @@ if __name__ == '__main__':
             if check_domain_availability(name + tld):
                 answer.append(name + tld)
                 print(name + tld)
+    save_to_file('lh77.txt', answer)
